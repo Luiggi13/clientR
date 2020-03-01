@@ -1,13 +1,36 @@
 import React from 'react';
-import {Layout} from 'antd';
+import { Route } from 'react-router-dom';
 
-export default function LayoutBasic() {
+import { Layout } from 'antd';
+
+import "./LayoutBasic.scss"
+
+
+export default function LayoutBasic(props) {
+    const { Content, Footer} = Layout;
+    const { routes } = props; 
     return (
         <Layout>
             <h2>Menu sidebar</h2>
-            <div>Contenido....</div>
-            <h5>Footer</h5>
+            <Layout>
+                <Content>
+                    <LoadRouters routes={routes} />
+                </Content>
+                <Footer>Christian 2019</Footer>
+            </Layout>
         </Layout>
 
     )
+}
+
+function LoadRouters({routes}) {
+
+    return routes.map((route,index) => (
+        <Route
+        key={index}
+        path={route.path}
+        exact={route.exact}
+        component={route.component}
+        />
+    ));
 }
