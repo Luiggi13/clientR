@@ -1,3 +1,24 @@
-.header__layout--admin {
-    background-color: #dfdfdf;
+@import "../scss/index.scss";
+
+.layout-admin {
+    transform: margin-left  0.2;
+
+    &__header {
+        position: fixed;
+        top:0;
+        left:0;
+        width: 100%;
+        display: flex;
+        height: 65px;
+    }
+    
+    &__content {
+        min-height: calc(100vh - 69px);
+        padding: 90px 25px 25px 25px;
+    }
+
+    &__footer {
+        padding: 20px;
+    }
+
 }
