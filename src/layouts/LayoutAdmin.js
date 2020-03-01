@@ -16,7 +16,7 @@ export default function LayoutAdmin(props) {
             <Layout>
                 <Header className="header__layout--admin">Header</Header>
                 <Content>
-                    <LoadRouters routes= {routes} />
+                    <LoadRoutes routes= {routes} />
                 </Content>
                 <Footer>Christian 2019</Footer>
             </Layout>
@@ -25,7 +25,7 @@ export default function LayoutAdmin(props) {
     )
 }
 
-function LoadRouters({routes}) {
+function LoadRoutes({routes}) {
 
     return (
         <Switch>

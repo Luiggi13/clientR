@@ -14,7 +14,7 @@ export default function LayoutBasic(props) {
             <h2>Menu sidebar</h2>
             <Layout>
                 <Content>
-                    <LoadRouters routes={routes} />
+                    <LoadRoutes routes={routes} />
                 </Content>
                 <Footer>Christian 2019</Footer>
             </Layout>
@@ -23,7 +23,7 @@ export default function LayoutBasic(props) {
     )
 }
 
-function LoadRouters({routes}) {
+function LoadRoutes({routes}) {
 
     return (
         <Switch>
