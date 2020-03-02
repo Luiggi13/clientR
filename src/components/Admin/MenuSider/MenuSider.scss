@@ -14,4 +14,11 @@
         font-size: 16px;
         font-style: italic;
     }
+    ul {
+        li {
+            &.ant-menu-item {
+                margin: 0;
+            }
+        }
+    }
 }

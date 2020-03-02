@@ -17,7 +17,6 @@ export default function MenuSider(props) {
               // defaultSelectedKeys={[location.pathname]}
               defaultSelectedKeys={["1"]}
             >
-                    <h2 className="title__web"> Admin menu</h2>
                     <Menu.Item key="1">
                         <Link to={"/admin"}>
                         <HomeOutlined />

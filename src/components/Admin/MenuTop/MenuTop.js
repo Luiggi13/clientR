@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from 'antd';
 import FusoLogo from "../../../assets/img/png/cllansola.png"
-import { MenuFoldOutlined, LogoutOutlined } from '@ant-design/icons';
+import { MenuFoldOutlined, MenuUnfoldOutlined, LogoutOutlined } from '@ant-design/icons';
 
 import "./MenuTop.scss"
 
@@ -25,6 +25,15 @@ export default function MenuTop(props) {
     //         </div>
     //     </div>
     // )
+
+    function IconOpenSideBar() {
+        
+        if (menuCollapsed) {
+            return <MenuUnfoldOutlined />;
+        }
+        return <MenuFoldOutlined />;
+      }
+
     return (
         <div className="menu-top">
           <div className="menu-top__left">
@@ -33,8 +42,8 @@ export default function MenuTop(props) {
               src={FusoLogo}
               alt="Christian Llansola"
             />
-            <Button type="link" onClick={() => setMenuCollapsed(!menuCollapsed)}>
-              <MenuFoldOutlined />
+            <Button type="link" onClick={() => {setMenuCollapsed(!menuCollapsed);}}>
+            {IconOpenSideBar()}
             </Button>
           </div>
           <div className="menu-top__right">
