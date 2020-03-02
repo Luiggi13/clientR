@@ -1,9 +1,11 @@
 import React from 'react';
 import { Button, Icon } from 'antd';
-import FusoLogo from "../../../assets/img/png/logo-web.png"
+import FusoLogo from "../../../assets/img/png/cllansola.png"
 import "./MenuTop.scss"
 
+
 export default function MenuTop() {
+    
     return (
         <div className="menu-top">
             <div className="menu-top__left">

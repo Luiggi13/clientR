@@ -1,0 +1,17 @@
+@import "../../../scss/index.scss";
+
+.admin-sider {
+    position: fixed;
+    left: 0;
+    top: 65px;
+    height: 100vh;
+    width: 210px;
+    overflow: auto;   
+    background: $background-dark-sider;
+    .title__web {
+        color:white;
+        padding: 20px;
+        font-size: 16px;
+        font-style: italic;
+    }
+}
