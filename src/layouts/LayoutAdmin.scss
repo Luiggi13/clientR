@@ -2,6 +2,7 @@
 
 .layout-admin {
     transform: margin-left  0.2;
+    height: 100vh;
 
     &__header {
         position: fixed;
@@ -15,7 +16,7 @@
     
     &__content {
         min-height: calc(100vh - 69px);
-        padding: 90px 25px 25px 230px;
+        padding: 90px 25px 25px 25px;
     }
 
     &__footer {
