@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from 'antd';
-import FusoLogo from "../../../assets/img/png/cllansola.png"
+import Cllansola from "../../../assets/img/png/cllansola.png"
 import { MenuFoldOutlined, MenuUnfoldOutlined, LogoutOutlined } from '@ant-design/icons';
 
 import "./MenuTop.scss"
@@ -13,7 +13,7 @@ export default function MenuTop(props) {
     // return (
     //     <div className="menu-top">
     //         <div className="menu-top__left">
-    //             <img className="menu-top__left-logo" src={FusoLogo} alt="Fusito"/>
+    //             <img className="menu-top__left-logo" src={Cllansola} alt="Fusito"/>
     //             <Button type="link" onClick={() => setMenuCollapsed(!menuCollapsed)}>
     //             <MenuFoldOutlined />
     //             </Button>
@@ -39,7 +39,7 @@ export default function MenuTop(props) {
           <div className="menu-top__left">
             <img
               className="menu-top__left-logo"
-              src={FusoLogo}
+              src={Cllansola}
               alt="Christian Llansola"
             />
             <Button type="link" onClick={() => {setMenuCollapsed(!menuCollapsed);}}>
