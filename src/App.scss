@@ -1,6 +1,20 @@
 @import "./scss/index.scss";
 
-.app{
-  h1{ color:$primary-color; }
-  h2{ color:green; }
+.ant-input-affix-wrapper.success,
+.ant-input-affix-wrapper > input.success {
+  border: 1px solid $success;
+  background-color: $background-success;
+}
+.ant-input-affix-wrapper.error,
+.ant-input-affix-wrapper > input.error {
+  border: 1px solid $error;
+  background-color: $background-error;
+}
+
+.ant-notification-notice{
+  &.ant-notification-notice-closable{
+    &.success {
+      border-right: 2px solid $success;
+    }
+  }
 }

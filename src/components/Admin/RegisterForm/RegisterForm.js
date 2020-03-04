@@ -45,8 +45,28 @@ export default function RegisterForm() {
 
     const register = (e) => {
         e.preventDefault();
-        console.log(formValid);
+        const { email, password, repeatPassword, privacyPolicy }  = formValid;
+        const emailVal = inputs.email;
+        const passwordVal = inputs.password;
+        const repeatPasswordVal = inputs.repeatPassword;
+        const privacyPolicyVal = inputs.privacyPolicy;
         
+        if ( !emailVal || !passwordVal || !repeatPasswordVal || !privacyPolicyVal ) {
+            notification['error']({
+                message: "Todos los mensajes son obligatórios",
+                duration: 3
+            })
+        } else {
+            if (passwordVal !== repeatPasswordVal) {
+                notification['error']({
+                    message: "Las contraseñas tienen que ser iguales",
+                    duration: 3
+                })
+            } else {
+                // TODO: conectar api y registrar el user
+                
+            }
+        }
     }
     
     return (
