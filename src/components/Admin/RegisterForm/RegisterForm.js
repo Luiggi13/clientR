@@ -43,11 +43,7 @@ export default function RegisterForm() {
 
   const inputValidation = e => {
     const { type, name } = e.target;
-
-    if (type === "name") {
-        setFormValid({ ...formValid, [name]: minLengthValidation(e.target, 3) });
-    }
-    if (type === "lastname") {
+    if (type === "text") {
         setFormValid({ ...formValid, [name]: minLengthValidation(e.target, 3) });
     }
     if (type === "email") {
