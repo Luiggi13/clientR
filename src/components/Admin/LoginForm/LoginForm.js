@@ -1,12 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form, Input, Button, notification } from "antd";
 import { SmileOutlined, MailOutlined, UserOutlined, LockOutlined } from '@ant-design/icons';
 
 import "./LoginForm.scss"
 
 export default function LoginForm() {
+    const [inputs, setInputs] = useState({
+        email: "",
+        password: ""
+      });
+
+
+    const changeForm = e => {
+        setInputs({
+            ...inputs,
+            [e.target.name]: e.target.value
+        })
+    }
+    const login = e => {
+        e.preventDefault();
+        console.log(inputs);
+        
+    }
     return (
-        <Form className="login-form">
+        <Form className="login-form" onSubmitCapture={login} onChange={changeForm}>
             <Form.Item>
                 <Input
                     prefix={<UserOutlined />}
