@@ -10,8 +10,6 @@ export function signUpApi(data) {
           "Content-Type": "application/json"
         }
       };
-    console.log('data from api user.js');
-    console.log(data);
       return fetch(url, params)
         .then(response => {
           return response.json();
@@ -42,8 +40,6 @@ export function signInApi(data) {
           return response.json();
         })
         .then(result => {
-          console.log(result);
-          
           return result;
         })
         .catch(err => {
