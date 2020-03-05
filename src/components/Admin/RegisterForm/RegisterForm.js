@@ -125,7 +125,7 @@ export default function RegisterForm() {
       <Form.Item>
         <Input
           prefix={<UserOutlined />}
-          type="name"
+          type="text"
           name="name"
           placeholder="Nombre usuario"
           className="register-form__input"
@@ -136,7 +136,7 @@ export default function RegisterForm() {
       <Form.Item>
         <Input
           prefix={<UserOutlined />}
-          type="lastname"
+          type="text"
           name="lastname"
           placeholder="Apellidos"
           className="register-form__input"
