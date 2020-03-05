@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Form, Input, Button, Checkbox, notification } from "antd";
-import {SmileOutlined, UserOutlined,LockOutlined } from '@ant-design/icons';
+import {SmileOutlined, MailOutlined, UserOutlined,LockOutlined } from '@ant-design/icons';
 import {
   emailValidation,
   minLengthValidation
@@ -11,12 +11,16 @@ import "./RegisterForm.scss";
 
 export default function RegisterForm() {
   const [inputs, setInputs] = useState({
+    name: "",
+    lastname: "",
     email: "",
     password: "",
     repeatPassword: "",
     privacyPolicy: false
   });
   const [formValid, setFormValid] = useState({
+    name: false,
+    lastname: false,
     email: false,
     password: false,
     repeatPassword: false,
@@ -40,6 +44,12 @@ export default function RegisterForm() {
   const inputValidation = e => {
     const { type, name } = e.target;
 
+    if (type === "name") {
+        setFormValid({ ...formValid, [name]: minLengthValidation(e.target, 3) });
+    }
+    if (type === "lastname") {
+        setFormValid({ ...formValid, [name]: minLengthValidation(e.target, 3) });
+    }
     if (type === "email") {
       setFormValid({ ...formValid, [name]: emailValidation(e.target) });
     }
@@ -53,13 +63,15 @@ export default function RegisterForm() {
 
   const register = async e => {
     e.preventDefault();
-
+ 
+    const nombreVal = inputs.name;
+    const lastnameVal = inputs.lastname;
     const emailVal = inputs.email;
     const passwordVal = inputs.password;
     const repeatPasswordVal = inputs.repeatPassword;
     const privacyPolicyVal = inputs.privacyPolicy;
-
-    if (!emailVal || !passwordVal || !repeatPasswordVal || !privacyPolicyVal) {
+    console.log(inputs);
+    if ( !nombreVal || !lastnameVal|| !emailVal || !passwordVal || !repeatPasswordVal || !privacyPolicyVal) {
       notification["error"]({
         message: "Todos los campos son obligatorios"
       });
@@ -94,6 +106,8 @@ export default function RegisterForm() {
     }
 
     setInputs({
+      name: "",
+      lastname: "",
       email: "",
       password: "",
       repeatPassword: "",
@@ -101,6 +115,8 @@ export default function RegisterForm() {
     });
 
     setFormValid({
+      name: false,
+      lastname: false,
       email: false,
       password: false,
       repeatPassword: false,
@@ -113,6 +129,28 @@ export default function RegisterForm() {
       <Form.Item>
         <Input
           prefix={<UserOutlined />}
+          type="name"
+          name="name"
+          placeholder="Nombre usuario"
+          className="register-form__input"
+          onChange={inputValidation}
+          value={inputs.name}
+        />
+      </Form.Item>
+      <Form.Item>
+        <Input
+          prefix={<UserOutlined />}
+          type="lastname"
+          name="lastname"
+          placeholder="Apellidos"
+          className="register-form__input"
+          onChange={inputValidation}
+          value={inputs.lastname}
+        />
+      </Form.Item>
+      <Form.Item>
+        <Input
+          prefix={<MailOutlined />}
           type="email"
           name="email"
           placeholder="Correo electronico"
