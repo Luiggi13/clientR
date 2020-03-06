@@ -7,6 +7,7 @@ import AdminSignIn from "../pages/Admin/SignIn/SignIn";
 
 
 
+
 import "./LayoutAdmin.scss"
 // const { Header, Footer, Sider, Content } = Layout;
 
@@ -15,9 +16,10 @@ export default function LayoutAdmin(props) {
     const [menuCollapsed, setMenuCollapsed] = useState(false);
     const { Header, Content, Footer } = Layout;
 
-    const user ="null";
+    const user = null;
+    
 
-    if ( user === null || user === "null" ) {
+    if ( !user ) {
         return (
             <>
             <Route path="/admin/login" component={AdminSignIn} />
