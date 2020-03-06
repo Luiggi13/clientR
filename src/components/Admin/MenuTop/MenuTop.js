@@ -2,6 +2,7 @@ import React from 'react';
 import { Button } from 'antd';
 import Cllansola from "../../../assets/img/png/cllansola.png"
 import { MenuFoldOutlined, MenuUnfoldOutlined, LogoutOutlined } from '@ant-design/icons';
+import { logout } from  "../../../api/auth";
 
 import "./MenuTop.scss"
 
@@ -34,6 +35,11 @@ export default function MenuTop(props) {
         return <MenuFoldOutlined />;
       }
 
+      const logoutUser = () => {
+        logout();
+        window.location.reload();
+      };
+
     return (
         <div className="menu-top">
           <div className="menu-top__left">
@@ -47,8 +53,11 @@ export default function MenuTop(props) {
             </Button>
           </div>
           <div className="menu-top__right">
-            <Button type="link">
+            {/* <Button type="link">
               <LogoutOutlined />
+            </Button> */}
+            <Button type="link" onClick={logoutUser}>
+            <LogoutOutlined />
             </Button>
           </div>
         </div>

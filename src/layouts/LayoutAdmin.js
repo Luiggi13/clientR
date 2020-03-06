@@ -20,7 +20,7 @@ export default function LayoutAdmin(props) {
 
     
 
-    if ( !user ) {
+    if ( !user && !isLoading ) {
         return (
             <>
             <Route path="/admin/login" component={AdminSignIn} />
@@ -28,6 +28,7 @@ export default function LayoutAdmin(props) {
             </>
         );
     }
+    if (user && !isLoading) {
     return (
         <Layout>
             <MenuSider menuCollapsed={menuCollapsed} />
@@ -48,6 +49,8 @@ export default function LayoutAdmin(props) {
         </Layout>
 
     )
+    }
+    return null;
 }
 
 function LoadRoutes({ routes }) {

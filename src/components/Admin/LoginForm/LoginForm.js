@@ -33,6 +33,7 @@ export default function LoginForm() {
             notification["success"]({
                 message: `Bienvenido  ${user.name}`
             });
+            window.location.href = "/admin";
         }
         
         
