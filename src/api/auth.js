@@ -19,6 +19,45 @@ export function getRefreshTokenApi() {
     return willExpireToken(refreshToken) ? null : refreshToken;
 }
 
+export function  refreshAccesTokenApi(refreshToken) {
+    const url = `${BASE_PATH}/${API_VERSION}/refres-acces-token`;
+    const bodyObj = {
+        refreshToken: refreshToken,
+    }
+    const params = {
+        method: "POST",
+        body: JSON.stringify(bodyObj),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      };
+
+      return fetch(url, params)
+      .then(response => {
+        if (response.status !== 200) {
+            return null;
+        } 
+        return response.json();
+      })
+      .then(result => {
+         if(!result) {
+             logout();
+         } else {
+             const { accessToken, refreshToken } = result;
+             localStorage.setItem(ACCESS_TOKEN, accessToken);
+             localStorage.setItem(REFRESH_TOKEN, refreshToken);
+         }
+      })
+      .catch(err => {
+        return err.message;
+      });
+}
+
+export function logout() {
+    localStorage.removeItem(ACCESS_TOKEN);
+    localStorage.removeItem(REFRESH_TOKEN);
+}
+
 function willExpireToken(token) {
     const seconds = 60;
     const metaToken = jwtDecode(token);
