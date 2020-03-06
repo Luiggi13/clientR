@@ -38,5 +38,4 @@ function checkUserLogin(setUser) {
             isLoading: false
         });
     }
-    console.log(jwtDecode(accessToken));
 }

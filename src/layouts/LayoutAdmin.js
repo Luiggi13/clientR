@@ -17,9 +17,7 @@ export default function LayoutAdmin(props) {
     const [menuCollapsed, setMenuCollapsed] = useState(false);
     const { Header, Content, Footer } = Layout;
     const { user, isLoading } = useAuth();
-
     
-
     if ( !user && !isLoading ) {
         return (
             <>
@@ -29,6 +27,7 @@ export default function LayoutAdmin(props) {
         );
     }
     if (user && !isLoading) {
+    
     return (
         <Layout>
             <MenuSider menuCollapsed={menuCollapsed} />
@@ -44,7 +43,7 @@ export default function LayoutAdmin(props) {
                 <Content className="layout-admin__content">
                     <LoadRoutes routes={routes} />
                 </Content>
-                <Footer className="layout-admin__footer">Christian 2019</Footer>
+    <Footer className="layout-admin__footer">Christian 2019</Footer>
             </Layout>
         </Layout>
 
