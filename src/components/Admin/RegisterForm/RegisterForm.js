@@ -66,7 +66,7 @@ export default function RegisterForm() {
     const passwordVal = inputs.password;
     const repeatPasswordVal = inputs.repeatPassword;
     const privacyPolicyVal = inputs.privacyPolicy;
-    console.log(inputs);
+    // console.log(inputs);
     if ( !nombreVal || !lastnameVal|| !emailVal || !passwordVal || !repeatPasswordVal || !privacyPolicyVal) {
       notification["error"]({
         message: "Todos los campos son obligatorios"
