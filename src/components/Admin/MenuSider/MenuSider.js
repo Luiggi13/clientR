@@ -1,20 +1,22 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import {Layout, Menu} from "antd"
 import { HomeOutlined,UserOutlined, MenuOutlined } from '@ant-design/icons';
 
 import "./MenuSider.scss"
 
-export default function MenuSider(props) {
-   const { menuCollapsed } = props;
+function MenuSider(props) {
+   const { menuCollapsed, location } = props;
    const { Sider } = Layout;
+   console.log(location.pathname);
+   
 
         return (
             <Sider className="admin-sider" collapsed={menuCollapsed}>
             <Menu
               theme="dark"
               mode="inline"
-              defaultSelectedKeys={["/admin/users"]}
+              defaultSelectedKeys={[location.pathname]}
             //   defaultSelectedKeys={["1"]}
             >
                     {/* <Menu.Item key="1">
@@ -33,3 +35,5 @@ export default function MenuSider(props) {
             </Sider>
         )
 }
+
+export default withRouter(MenuSider);
