@@ -60,7 +60,6 @@ export default function EditUserForm(props) {
     const token = getAccessTokenApi();
     let userUpdate = userData;
     
-
     if (userUpdate.password || userUpdate.repeatPassword) {
       if (userUpdate.password !== userUpdate.repeatPassword) {
         notification["error"]({

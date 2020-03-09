@@ -36,8 +36,6 @@ export default function ListUsers(props) {
 }
 
 function UsersActive(props) {
-    console.log('props de user edit');
-    console.log(props);
     const { usersActive, setIsVisibleModal, setModalTitle, setModalContent } = props;
     const editUser = user => {
         setIsVisibleModal(true);
