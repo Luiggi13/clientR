@@ -53,7 +53,7 @@ function UsersActive(props) {
 }
 
 function UserActive(props) {
-    const { user, editUser, setReloadUsers } = props;
+    const { user, editUser } = props;
     const [avatar, setAvatar] = useState(null);
   
     useEffect(() => {
@@ -99,33 +99,47 @@ function UsersInactive(props) {
         <List className="users-active"
         itemLayout="horizontal"
         dataSource={usersInactive}
-        renderItem={ user => (
-            <List.Item
-                actions={[
-                    <Button
-                        type="primary"
-                        onClick={()=> console.log("Activar usuario")}
-                        >
-                            <CheckOutlined />
-                        </Button>,
-                    <Button
-                        type="danger"
-                        onClick={()=> console.log("eliminar")}
-                        >
-                            <DeleteOutlined />
-                        </Button>
-                ]}
-            >
-                <List.Item.Meta 
-                    avatar = {<Avatar src={user.avatar ? user.avatar : NoAvatar} />}
-                    title = {`
-                        ${user.name ? user.name : '...'}
-                        ${user.lastname ? user.lastname : '...'}
-                    `}
-                    description={user.email}
-                />
-            </List.Item>
-        )}
+        renderItem={ user => <UserInactive user={user}  />}
         />
+    )
+}
+
+function UserInactive(props) {
+    const { user }= props;
+    console.log('props inactive');
+    console.log(props);
+    const [avatar, setAvatar] = useState(null);
+  
+    useEffect(() => {
+      if (user.avatar) {
+        getAvatarApi(user.avatar).then(response => {
+          setAvatar(response);
+        });
+      } else {
+        setAvatar(null);
+      }
+    }, [user]);
+    
+    return (
+        <List.Item
+      actions={[
+        <Button type="primary" onClick={() => {console.log('editar')} }>
+          <CheckOutlined />
+        </Button>,
+        <Button type="danger" onClick={() => {console.log('eliminar')} }>
+          <DeleteOutlined />
+        </Button>
+      ]}
+    >
+      <List.Item.Meta
+        avatar={<Avatar src={avatar ? avatar : NoAvatar} />}
+        title={`
+                    ${user.name ? user.name : "..."} 
+                    ${user.lastname ? user.lastname : "..."}
+                `}
+        description={user.email}
+      />
+    </List.Item>
+        
     )
 }
