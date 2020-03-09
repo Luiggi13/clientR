@@ -1,23 +1,9 @@
 import React, { useState, useEffect, useCallback } from "react";
-import {
-  Avatar,
-  Form,
-  Icon,
-  Input,
-  Select,
-  Button,
-  Row,
-  Col,
-  notification
-} from "antd";
-import { CheckOutlined, LockOutlined, UserOutlined, MailOutlined } from '@ant-design/icons';
+import { Avatar, Form, Input, Select, Button, Row, Col, notification} from "antd";
+import { LockOutlined, UserOutlined, MailOutlined } from '@ant-design/icons';
 import { useDropzone } from "react-dropzone";
 import NoAvatar from "../../../../assets/img/png/no-avatar.png";
-import {
-  updateUserApi,
-  uploadAvatarApi,
-  getAvatarApi
-} from "../../../../api/user";
+import { updateUserApi, uploadAvatarApi, getAvatarApi} from "../../../../api/user";
 import { getAccessTokenApi } from "../../../../api/auth";
 
 import "./EditUserForm.scss";
@@ -26,7 +12,6 @@ export default function EditUserForm(props) {
   const { user, setIsVisibleModal, setReloadUsers } = props;
   const [avatar, setAvatar] = useState(null);
   const [userData, setUserData] = useState({});
-  console.log(avatar);
 
   useEffect(() => {
     setUserData({
@@ -148,7 +133,7 @@ function UploadAvatar(props) {
       {isDragActive ? (
         <Avatar size={150} src={NoAvatar} />
       ) : (
-        <Avatar size={150} src={avatarUrl ? avatarUrl : NoAvatar} />
+        <Avatar size={150} src={avatarUrl ? avatarUrl : NoAvatar } />
       )}
     </div>
   );
