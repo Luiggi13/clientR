@@ -71,6 +71,7 @@ export function getUsersApi(token) {
     return err.message;
   });
 }
+
 export function getUsersActiveApi(token, status) {
   const url = `${BASE_PATH}/${API_VERSION}/users-active?active=${status}`;
   const params = {
