@@ -71,10 +71,10 @@ function UserActive(props) {
         <Button type="primary" onClick={() => editUser(user)}>
           <EditOutlined />
         </Button>,
-        <Button type="danger" onClick={console.log('click')}>
+        <Button type="danger" onClick={ ()=> {return true} }>
           <StopOutlined />
         </Button>,
-        <Button type="danger" onClick={console.log('click')}>
+        <Button type="danger" onClick={ ()=> {return true} }>
           <DeleteOutlined />
         </Button>
       ]}
@@ -106,8 +106,6 @@ function UsersInactive(props) {
 
 function UserInactive(props) {
     const { user }= props;
-    console.log('props inactive');
-    console.log(props);
     const [avatar, setAvatar] = useState(null);
   
     useEffect(() => {
@@ -123,10 +121,10 @@ function UserInactive(props) {
     return (
         <List.Item
       actions={[
-        <Button type="primary" onClick={() => {console.log('editar')} }>
+        <Button type="primary" onClick={() => {return true} }>
           <CheckOutlined />
         </Button>,
-        <Button type="danger" onClick={() => {console.log('eliminar')} }>
+        <Button type="danger" onClick={() => {return true}}>
           <DeleteOutlined />
         </Button>
       ]}
