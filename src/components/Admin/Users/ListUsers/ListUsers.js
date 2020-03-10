@@ -4,12 +4,12 @@ import { EditOutlined, StopOutlined, DeleteOutlined, CheckOutlined } from '@ant-
 import NoAvatar from "../../../../assets/img/png/no-avatar.png";
 import Modal from "../../../Modal";
 import EditUserForm from "../EditUserForm";
-import {getavatarapi, getAvatarApi} from "../../../../api/user";
+import {getAvatarApi} from "../../../../api/user";
 import "./ListUsers.scss";
 
 
 export default function ListUsers(props) {
-    const {usersActive, usersInactive}  = props;
+    const {usersActive, usersInactive, setReloadUsers}  = props;
     const [viewUsersActives, setviewUsersActives] = useState(true);
     const [isVisibleModal, setIsVisibleModal] = useState(false);
     const [modalTitle, setModalTitle] = useState("");
@@ -26,7 +26,7 @@ export default function ListUsers(props) {
                     {viewUsersActives ? "Usuarios activos" : "Usuarios inactivos"}
                 </span></div>
                 {viewUsersActives ? 
-                <UsersActive usersActive={usersActive} setIsVisibleModal={setIsVisibleModal} setModalTitle={setModalTitle} setModalContent={setModalContent}/> : 
+                <UsersActive usersActive={usersActive} setIsVisibleModal={setIsVisibleModal} setModalTitle={setModalTitle} setModalContent={setModalContent} setReloadUsers={setReloadUsers}/> : 
                 <UsersInactive usersInactive={usersInactive}/>}
             <Modal
             title={modalTitle} isVisible={isVisibleModal} setIsVisible={ setIsVisibleModal }>
@@ -37,11 +37,11 @@ export default function ListUsers(props) {
 }
 
 function UsersActive(props) {
-    const { usersActive, setIsVisibleModal, setModalTitle, setModalContent } = props;
+    const { usersActive, setIsVisibleModal, setModalTitle, setModalContent, setReloadUsers } = props;
     const editUser = user => {
         setIsVisibleModal(true);
         setModalTitle(`Editar ${user.name ? user.name : "..."} ${user.lastname ? user.lastname : "..."}`);
-        setModalContent(<EditUserForm user={user} />);
+        setModalContent(<EditUserForm user={user} setIsVisibleModal={setIsVisibleModal} setReloadUsers={setReloadUsers}/>);
     }
     return (
         <List className="users-active"
