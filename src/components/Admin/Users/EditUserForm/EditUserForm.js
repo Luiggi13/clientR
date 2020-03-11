@@ -47,7 +47,8 @@ export default function EditUserForm(props) {
         e.preventDefault();
         const token = getAccessTokenApi();
         let userUpdate = userData;
-    
+        console.warn(userData);
+        console.warn(userUpdate);
         if (userUpdate.password || userUpdate.repeatPassword) {
           if (userUpdate.password !== userUpdate.repeatPassword) {
             notification["error"]({
@@ -82,6 +83,7 @@ export default function EditUserForm(props) {
             notification["success"]({
               message: result.message
             });
+            setUserData({...userData, password:"", repeatPassword:""});
             setIsVisibleModal(false);
             setReloadUsers(true);
           });
