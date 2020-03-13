@@ -23,7 +23,7 @@ export default function EditUserForm(props) {
         lastname: user.lastname,
         email: user.email,
         role: user.role,
-        avatar: user.avatar
+        avatar: user.avatar,
       });
     }, [user]);
   
@@ -47,8 +47,6 @@ export default function EditUserForm(props) {
         e.preventDefault();
         const token = getAccessTokenApi();
         let userUpdate = userData;
-        console.warn(userData);
-        console.warn(userUpdate);
         if (userUpdate.password || userUpdate.repeatPassword) {
           if (userUpdate.password !== userUpdate.repeatPassword) {
             notification["error"]({
@@ -83,11 +81,11 @@ export default function EditUserForm(props) {
             notification["success"]({
               message: result.message
             });
-            setUserData({...userData, password:"", repeatPassword:""});
             setIsVisibleModal(false);
             setReloadUsers(true);
-          });
-        }
+        });
+    }
+    setUserData({...userData,password:"", repeatPassword:""});
       };
     
       return (
@@ -150,7 +148,7 @@ export default function EditUserForm(props) {
     const { Option } = Select;
       
     return (
-        <Form className="form-edit" onSubmitCapture={updateUser}>
+        <Form className="form-edit" onSubmitCapture={updateUser} >
           <Row gutter={24}>
             <Col span={12}>
               <Form.Item>
@@ -211,6 +209,7 @@ export default function EditUserForm(props) {
                   prefix={<LockOutlined />}
                   type="password"
                   placeholder="Contraseña"
+                  value={userData.password}
                   onChange={e =>
                     setUserData({ ...userData, password: e.target.value })
                   }
@@ -223,6 +222,7 @@ export default function EditUserForm(props) {
                   prefix={<LockOutlined />}
                   type="password"
                   placeholder="Repetir contraseña"
+                  value={userData.repeatPassword}
                   onChange={e =>
                     setUserData({ ...userData, repeatPassword: e.target.value })
                   }
