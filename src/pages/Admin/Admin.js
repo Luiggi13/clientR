@@ -1,6 +1,6 @@
-import React from 'react';
-import { Redirect, Route } from "react-router-dom";
-import Users from "../../pages/Admin/Users/Users";
+// import React from 'react';
+// import { Redirect, Route } from "react-router-dom";
+// import Users from "../../pages/Admin/Users/Users";
 
 export default function Admin() {
     return (
