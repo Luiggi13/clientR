@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Switch, List, Avatar, Button } from "antd";
+import { Switch, List, Avatar, Button, notification } from "antd";
 import { EditOutlined, StopOutlined, DeleteOutlined, CheckOutlined } from '@ant-design/icons';
 import NoAvatar from "../../../../assets/img/png/no-avatar.png";
 import Modal from "../../../Modal";
 import EditUserForm from "../EditUserForm";
-import {getAvatarApi} from "../../../../api/user";
+import {getAvatarApi, activateUserApi} from "../../../../api/user";
+import { getAccessTokenApi } from "../../../../api/auth";
+
 import "./ListUsers.scss";
 
 
@@ -27,7 +29,7 @@ export default function ListUsers(props) {
                 </span></div>
                 {viewUsersActives ? 
                 <UsersActive usersActive={usersActive} setIsVisibleModal={setIsVisibleModal} setModalTitle={setModalTitle} setModalContent={setModalContent} setReloadUsers={setReloadUsers}/> : 
-                <UsersInactive usersInactive={usersInactive}/>}
+                <UsersInactive usersInactive={usersInactive} setReloadUsers={setReloadUsers}/>}
             <Modal
             title={modalTitle} isVisible={isVisibleModal} setIsVisible={ setIsVisibleModal }>
                 {modalContent}
@@ -47,13 +49,13 @@ function UsersActive(props) {
         <List className="users-active"
         itemLayout="horizontal"
         dataSource={usersActive}
-        renderItem={ user => <UserActive user={user} editUser={editUser} />}
+        renderItem={ user => <UserActive user={user} editUser={editUser} setReloadUsers={setReloadUsers} />}
         />
     )
 }
 
 function UserActive(props) {
-    const { user, editUser } = props;
+    const { user, editUser, setReloadUsers } = props;
     const [avatar, setAvatar] = useState(null);
   
     useEffect(() => {
@@ -65,13 +67,32 @@ function UserActive(props) {
         setAvatar(null);
       }
     }, [user]);
+
+    const deactivateUser = () => {
+      console.log('desactivando');
+      const accessToken = getAccessTokenApi();
+
+      activateUserApi(accessToken, user._id, false)
+      .then(response => {
+        notification["success"]({
+          message: response
+        });
+        setReloadUsers(true);
+      })
+      .catch(err => {
+        notification["error"]({
+          message: err
+        });
+      })
+    };
+
     return (
         <List.Item
       actions={[
         <Button type="primary" onClick={() => editUser(user)}>
           <EditOutlined />
         </Button>,
-        <Button type="danger" onClick={ ()=> {return true} }>
+        <Button type="danger" onClick={ deactivateUser }>
           <StopOutlined />
         </Button>,
         <Button type="danger" onClick={ ()=> {return true} }>
@@ -93,19 +114,19 @@ function UserActive(props) {
 }
 
 function UsersInactive(props) {
-    const { usersInactive }  = props;
+    const { usersInactive, setReloadUsers }  = props;
     
     return (
         <List className="users-active"
         itemLayout="horizontal"
         dataSource={usersInactive}
-        renderItem={ user => <UserInactive user={user}  />}
+        renderItem={ user => <UserInactive user={user} setReloadUsers={setReloadUsers}  />}
         />
     )
 }
 
 function UserInactive(props) {
-    const { user }= props;
+    const { user, setReloadUsers }= props;
     const [avatar, setAvatar] = useState(null);
   
     useEffect(() => {
@@ -117,11 +138,29 @@ function UserInactive(props) {
         setAvatar(null);
       }
     }, [user]);
+
+    const activateUser = () => {
+      console.log('desactivando');
+      const accessToken = getAccessTokenApi();
+
+      activateUserApi(accessToken, user._id, true)
+      .then(response => {
+        notification["success"]({
+          message: response
+        });
+        setReloadUsers(true);
+      })
+      .catch(err => {
+        notification["error"]({
+          message: err
+        });
+      })
+    };
     
     return (
         <List.Item
       actions={[
-        <Button type="primary" onClick={() => {return true} }>
+        <Button type="primary" onClick={ activateUser }>
           <CheckOutlined />
         </Button>,
         <Button type="danger" onClick={() => {return true}}>
