@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Switch, List, Avatar, Button, notification } from "antd";
+import { Switch, List, Avatar, Button, notification, Modal as ModalAntd } from "antd";
 import { EditOutlined, StopOutlined, DeleteOutlined, CheckOutlined } from '@ant-design/icons';
 import NoAvatar from "../../../../assets/img/png/no-avatar.png";
 import Modal from "../../../Modal";
 import EditUserForm from "../EditUserForm";
-import {getAvatarApi, activateUserApi} from "../../../../api/user";
+import {getAvatarApi, activateUserApi, deleteUserApi} from "../../../../api/user";
 import { getAccessTokenApi } from "../../../../api/auth";
 
 import "./ListUsers.scss";
 
+const { confirm } = ModalAntd;
 
 export default function ListUsers(props) {
     const {usersActive, usersInactive, setReloadUsers}  = props;
@@ -86,6 +87,32 @@ function UserActive(props) {
       })
     };
 
+    const showDeleteConfirm = () => {
+      const accessToken = getAccessTokenApi();
+
+      confirm({
+        title: "Eliminando usuario",
+        content: `¿Estás seguro que quiere eliminar a ${user.email}?`,
+        okText: "Eliminar",
+        okType: "danger",
+        cancelText: "Cancelar",
+        onOk() {
+          deleteUserApi(accessToken, user._id)
+          .then(response => {
+            notification["success"]({
+              message: response.message
+            });
+            setReloadUsers(true);
+          })
+          .catch(err => {
+            notification["error"]({
+              message: err.message
+            })
+          })
+        }
+      })
+    }
+
     return (
         <List.Item
       actions={[
@@ -95,7 +122,7 @@ function UserActive(props) {
         <Button type="danger" onClick={ deactivateUser }>
           <StopOutlined />
         </Button>,
-        <Button type="danger" onClick={ ()=> {return true} }>
+        <Button type="danger" onClick={ showDeleteConfirm }>
           <DeleteOutlined />
         </Button>
       ]}
@@ -180,3 +207,4 @@ function UserInactive(props) {
         
     )
 }
+
