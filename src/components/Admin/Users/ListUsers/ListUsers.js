@@ -183,6 +183,32 @@ function UserInactive(props) {
         });
       })
     };
+
+    const showDeleteConfirm = () => {
+      const accessToken = getAccessTokenApi();
+
+      confirm({
+        title: "Eliminando usuario",
+        content: `¿Estás seguro que quiere eliminar a ${user.email}?`,
+        okText: "Eliminar",
+        okType: "danger",
+        cancelText: "Cancelar",
+        onOk() {
+          deleteUserApi(accessToken, user._id)
+          .then(response => {
+            notification["success"]({
+              message: response.message
+            });
+            setReloadUsers(true);
+          })
+          .catch(err => {
+            notification["error"]({
+              message: err.message
+            })
+          })
+        }
+      })
+    }
     
     return (
         <List.Item
@@ -190,7 +216,7 @@ function UserInactive(props) {
         <Button type="primary" onClick={ activateUser }>
           <CheckOutlined />
         </Button>,
-        <Button type="danger" onClick={() => {return true}}>
+        <Button type="danger" onClick={ showDeleteConfirm }>
           <DeleteOutlined />
         </Button>
       ]}
