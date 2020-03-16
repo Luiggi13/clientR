@@ -118,13 +118,13 @@ function UserActive(props) {
         deleteUserApi(accessToken, user._id)
           .then(response => {
             notification["success"]({
-              message: response.message
+              message: response
             });
             setReloadUsers(true);
           })
           .catch(err => {
             notification["error"]({
-              message: err.message
+              message: err
             })
           })
       }
