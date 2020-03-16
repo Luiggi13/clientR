@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link, withRouter } from "react-router-dom";
 import {Layout, Menu} from "antd"
-import { UserOutlined } from '@ant-design/icons';
+import { UserOutlined, HomeOutlined } from '@ant-design/icons';
 
 import "./MenuSider.scss"
 
 function MenuSider(props) {
    const { menuCollapsed, location } = props;
    const { Sider } = Layout;
-//    console.log(location.pathname);
+   console.log(location.pathname);
    
 
         return (
@@ -19,12 +19,12 @@ function MenuSider(props) {
               defaultSelectedKeys={[location.pathname]}
             //   defaultSelectedKeys={["1"]}
             >
-                    {/* <Menu.Item key="1">
+                    <Menu.Item key="/admin">
                         <Link to={"/admin"}>
                         <HomeOutlined />
                             <span className="nav-text">Dashboard</span>
                         </Link>
-                    </Menu.Item> */}
+                    </Menu.Item>
                     <Menu.Item key="/admin/users">
                         <Link to={"/admin/users"}>
                         <UserOutlined />
