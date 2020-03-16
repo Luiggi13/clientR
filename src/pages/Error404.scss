@@ -1,0 +1,11 @@
+@import "../scss/index.scss";
+h1 {
+  font-size: 0em + 27px / $defaultFontSize;
+  margin-bottom: 0;
+}
+h2 {
+    &.error-404 {
+      color:red;
+      font-size: 0em + 42px / $defaultFontSize;
+    }
+  }
