@@ -3,9 +3,10 @@ import { Switch, List, Button, notification, Modal as ModalAntd } from "antd";
 import { EditOutlined, StopOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import Modal from "../../../Modal";
 import DragSortableList from 'react-drag-sortable';
-import { updateMenuApi, activateMenuApi } from "../../../../api/menu";
+import { updateMenuApi, activateMenuApi, deleteMenuApi } from "../../../../api/menu";
 import { getAccessTokenApi } from "../../../../api/auth";
 import AddMenuWebForm from "../AddMenuWebForm";
+import EditMenuWebForm from "../EditMenuWebForm";
 import "./MenuWebList.scss";
 
 const { confirm } = ModalAntd;
@@ -24,11 +25,12 @@ export default function MenuWebList(props) {
         menu.forEach(item => {
             lisItemsArray.push({
             content: (
-                <MenuItem item={item} activateMenu={activateMenu} />
+                <MenuItem item={item} deleteMenu={deleteMenu} activateMenu={activateMenu} editMenuWebModal={editMenuWebModal} />
             )
             })
         });
         setListItems(lisItemsArray);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [menu])
     
     const activateMenu = (menu, status) => {
@@ -62,6 +64,46 @@ export default function MenuWebList(props) {
         )
     }
 
+    const editMenuWebModal = menu => {
+        setIsVisibleModal(true);
+        setModalTitle(`Editando menu: ${menu.title}`);
+        setModalContent(
+          <EditMenuWebForm
+            setIsVisibleModal={setIsVisibleModal}
+            setReloadMenuWeb={setReloadMenuWeb}
+            menu={menu}
+          />
+        );
+      };
+
+      // delete
+      const deleteMenu = menu => {
+        const accessToken = getAccessTokenApi();
+console.log(menu);
+        confirm({
+          title: "Eliminando usuario",
+          content: `¿Estás seguro que quiere eliminar a ${menu.title}?`,
+          okText: "Eliminar",
+          okType: "danger",
+          cancelText: "Cancelar",
+          onOk() {
+            deleteMenuApi(accessToken, menu._id)
+              .then(response => {
+                notification["success"]({
+                  message: response
+                });
+                setReloadMenuWeb(true);
+              })
+              .catch(err => {
+                notification["error"]({
+                  message: err
+                })
+              })
+          }
+        })
+      }
+      // delete
+
     return (
         <div className="menu-web-list">
             <div className="menu-web-list__header">
@@ -81,15 +123,15 @@ export default function MenuWebList(props) {
 }
 
 function MenuItem(props) {
-    const { item, activateMenu } = props;
+    const { item, activateMenu, editMenuWebModal, deleteMenu } = props;
     return (
         <List.Item
             actions={[
                 <Switch defaultChecked={item.active} onChange={ e => activateMenu(item, e)} />,
-                <Button type="primary">
+                <Button type="primary" onClick={() => editMenuWebModal(item)}>
                     <EditOutlined />
                 </Button>,
-                <Button type="danger">
+                <Button type="danger" onClick={ () => deleteMenu(item)}>
                 <DeleteOutlined />
             </Button>
             ]}
