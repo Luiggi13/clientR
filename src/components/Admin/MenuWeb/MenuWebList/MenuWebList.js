@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Switch, List, Button, notification, Modal as ModalAntd } from "antd";
-import { EditOutlined, StopOutlined, DeleteOutlined, CheckOutlined } from '@ant-design/icons';
+import { EditOutlined, StopOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import Modal from "../../../Modal";
 import DragSortableList from 'react-drag-sortable';
 import { updateMenuApi, activateMenuApi } from "../../../../api/menu";
@@ -55,7 +55,7 @@ export default function MenuWebList(props) {
         <div className="menu-web-list">
             <div className="menu-web-list__header">
                 <Button type="primary">
-                    Menú
+                <PlusOutlined /> Nuevo menú
                 </Button>
             </div>
             <div className="menu-web-list__items">
