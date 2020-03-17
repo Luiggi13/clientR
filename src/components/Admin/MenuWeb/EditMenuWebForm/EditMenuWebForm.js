@@ -8,33 +8,49 @@ import "./EditMenuWebForm.scss";
 
 export default function EditMenuWebForm(props) {
     const { setIsVisibleModal, setReloadMenuWeb, menu } = props;
+    const [menuWebData, setMenuWebData]= useState(menu);
+
+    useEffect(() => {
+        setMenuWebData(menu);
+    }, [menu])
+
+    const editMenu = event => {
+        event.preventDefault();
+        console.log(menuWebData);
+        
+    }
 
     return (
         <div className="edit-menu-web-form">
-            <EditForm />
+            <EditForm
+            menuWebData={menuWebData}
+            setMenuWebData={setMenuWebData}
+            editMenu={editMenu}
+            />
         </div>
     )
     
 }
 
 function EditForm(props) {
-    // const {menuWebData, setMenuWebData, editMenu, menu} = props;
+    const {menuWebData, setMenuWebData, editMenu} = props;
+
     return (
-        <Form className="form-edit">
+        <Form className="form-edit" onSubmitCapture={editMenu}>
             <Form.Item>
             <Input
                 prefix={<FontSizeOutlined />}
                 placeholder="Título"
-                // onChange={e => setMenuWebData({...menuWebData, title: e.target.value})}
-                // value={menuWebData.title}
+                onChange={e => setMenuWebData({...menuWebData, title: e.target.value})}
+                value={menuWebData.title}
              />
             </Form.Item>
             <Form.Item>
             <Input
                 prefix={<LinkOutlined />}
                 placeholder="URL"
-                // onChange={e => setMenuWebData({...menuWebData, title: e.target.value})}
-                // value={menuWebData.title}
+                onChange={e => setMenuWebData({...menuWebData, url: e.target.value})}
+                value={menuWebData.url}
              />
             </Form.Item>
             <Form.Item>
