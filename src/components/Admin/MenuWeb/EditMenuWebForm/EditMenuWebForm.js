@@ -16,7 +16,26 @@ export default function EditMenuWebForm(props) {
 
     const editMenu = event => {
         event.preventDefault();
-        console.log(menuWebData);
+        if(!menuWebData.title || !menuWebData.url) {
+            notification["error"]({
+                message: "Todos los campos son obligatórios"
+            });
+        } else {
+            const accessToken = getAccessTokenApi();
+            updateMenuApi(accessToken,menuWebData._id,menuWebData)
+            .then(response => {
+                notification["success"]({
+                    message: response
+                });
+                setIsVisibleModal(false);
+                setReloadMenuWeb(true);
+            })
+            .catch(() =>{
+                notification["error"]({
+                    message: "Error del servidor, inténtelo más tarde"
+                });
+            })
+        }
         
     }
 
