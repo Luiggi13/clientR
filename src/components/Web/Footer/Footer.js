@@ -1,7 +1,7 @@
 import React from 'react'
 import { Layout, Row, Col } from "antd";
 // import { ClockCircleOutlined, KeyOutlined, MessageOutlined, UserOutlined, DollarOutlined, CheckCircleOutlined} from '@ant-design/icons';
-
+import MyInfo from "./MyInfo";
 import "./Footer.scss";
 export default function Footer() {
     const { Footer } = Layout;
@@ -11,7 +11,7 @@ export default function Footer() {
                 <Col md={4} />
                 <Col md={16}>
                     <Row>
-                        <Col md={8}>Mi info</Col>
+                        <Col md={8}><MyInfo /></Col>
                         <Col md={8}>Navegación</Col>
                         <Col md={8}>newsletter</Col>
                     </Row>
