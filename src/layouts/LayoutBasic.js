@@ -11,15 +11,17 @@ export default function LayoutBasic(props) {
     const { routes } = props; 
   
     return (
+        <>
         <Row>
             <Col lg={4} />
             <Col lg={16}>
                 <MenuTop/>
-                <LoadRoutes routes={routes} />
-                <Footer>Christian 2019</Footer>
             </Col>
             <Col lg={4} />
         </Row>
+        <LoadRoutes routes={routes} />
+        <Footer>Christian 2019</Footer>
+        </>
     )
   
     // return (
