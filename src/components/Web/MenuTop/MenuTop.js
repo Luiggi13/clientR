@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Menu } from "antd";
 import { getMenuApi } from "../../../api/menu";
 import { Link } from "react-router-dom";
+import SocialLinks from "../SocialLinks";
 import LogoWeb from "../../../assets/img/png/cllansola.png"
 
 import "./MenuTop.scss";
@@ -55,9 +56,7 @@ export default function MenuTop() {
                     Contacto
                 </Link>
             </Menu.Item> */}
-            <div>
-                RRSS
-            </div>
+            <SocialLinks />
         </Menu>
     )
 }
