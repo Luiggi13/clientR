@@ -11,11 +11,13 @@ export default function AddMenuWebForm(props) {
 
     const addMenu = event => {
         event.preventDefault();
+        // return console.log(menuWebData.http);
+        
         let finalData = {
             title:menuWebData.title,
             url: (menuWebData.http? menuWebData.http: "http://") + menuWebData.url
         };
-
+        
         if(!finalData.title || !finalData.url || !menuWebData.url) {
             notification["error"]({
                 message: "Todos los campos son obligatorios"
@@ -56,8 +58,9 @@ function AddForm(props) {
     const { Option } = Select;
     const selectBefore = (
         <Select defaultValue="http://" style={{width:90}} 
-        onChange={e => setMenuWebData({ ...menuWebData, http: e })}
+        onChange={e => {console.log(e);setMenuWebData({ ...menuWebData, http: e })}}
         >
+            <Option value="/">/</Option>
             <Option value="http://">http://</Option>
             <Option value="https://">https://</Option>
         </Select>
