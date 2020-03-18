@@ -149,7 +149,7 @@ export default function RegisterForm() {
           prefix={<MailOutlined />}
           type="email"
           name="email"
-          placeholder="Correo electronico"
+          placeholder="Correo electrónico"
           className="register-form__input"
           onChange={inputValidation}
           value={inputs.email}
