@@ -1,0 +1,60 @@
+@import "../../../index.scss";
+
+.how-my-courses-work {
+    margin:100px 0 50px 0;
+    &__title {
+        text-align: center;
+        line-height: 0.7;
+        margin-bottom: 40px;
+        h2 {
+            color: $font-light;
+            font-size: 32px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        h3 {
+            color: $primary-color-light;
+            b {
+                color: #eb5352
+            }
+        }
+    }
+    .row-cards {
+        .ant-col {
+            padding: 15px!important;
+        }
+    }
+    &__card {
+        border: 0;
+        background-color: $background-dark-light-web;
+        border-radius: 10px;
+        overflow: hidden;
+        text-align: center;
+        box-shadow: 0px 0px 10px 2px rgba(0,0,0,.25);
+        -webkit-box-shadow: 0px 0px 10px 2px rgba(0,0,0,.25);
+        -moz-box-shadow: 0px 0px 10px 2px rgba(0,0,0,.25);
+
+        .ant-card-body {
+            min-height: 215px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        svg {
+            font-size: 45px;
+            margin-bottom: 20px;
+            color: $primary-color-light;
+        }
+        .ant-card-meta-detail {
+            .ant-card-meta-title {
+                color: $primary-color-light;
+                font-size: 20px;
+                font-weight: bold;
+            }
+            .ant-card-meta-description {
+                color: $primary-color-dark;
+            }
+        }
+    }
+}
