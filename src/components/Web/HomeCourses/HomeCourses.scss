@@ -1,0 +1,15 @@
+@import "../../../scss/index.scss";
+
+.home-courses {
+    margin:50px 0;
+
+    &__title {
+        text-align: center;
+        h2 {
+            color: $font-light;
+            font-weight: bold;
+            font-size: 32px;
+            text-transform: uppercase;
+        }
+    }
+}
