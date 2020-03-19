@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { ReactComponent as YouTubeIcon } from "../../../assets/img/svg/youtube.svg";
 import { ReactComponent as TwitterIcon } from "../../../assets/img/svg/twitter.svg";
 import { ReactComponent as FacebookIcon } from "../../../assets/img/svg/facebook.svg";

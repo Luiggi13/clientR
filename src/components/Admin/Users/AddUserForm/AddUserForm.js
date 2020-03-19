@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from "react";
 import { Form, Input, Select, Button, Row, Col, notification} from "antd";
-import { LockOutlined, SmileOutlined,UserOutlined, MailOutlined} from '@ant-design/icons';
+import { LockOutlined, UserOutlined, MailOutlined} from '@ant-design/icons';
 import { signUpAdminApi } from "../../../../api/user"
 import { getAccessTokenApi } from "../../../../api/auth"
 import {
@@ -98,6 +98,7 @@ export default function AddUserForm(props) {
                     });
                     setIsVisibleModal(false);
                     setReloadUsers(true);
+                    resetForm();
                     setUserData({});
                 })
                 .catch(err => {

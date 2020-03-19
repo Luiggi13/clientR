@@ -214,14 +214,16 @@ function UserInactive(props) {
       onOk() {
         deleteUserApi(accessToken, user._id)
           .then(response => {
+            console.log(response);
             notification["success"]({
-              message: response.message
+              message: response
             });
             setReloadUsers(true);
           })
           .catch(err => {
+            console.log(err);
             notification["error"]({
-              message: err.message
+              message: err
             })
           })
       }
