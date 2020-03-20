@@ -3,8 +3,10 @@ import { List, Button, Modal as ModalAntd, notification } from "antd";
 import { BookOutlined } from '@ant-design/icons';
 import DragSortableList from 'react-drag-sortable';
 import Modal from "../../../Modal";
+import AddEditCourseForm  from "../AddEditCourseForm";
 import { getCourseDataUdemyApi, deleteCourseApi  } from "../../../../api/course";
 import { getAccessTokenApi } from "../../../../api/auth";
+
 import "./CoursesList.scss";
 
 const { confirm } = ModalAntd;
@@ -48,11 +50,10 @@ export default function CoursesList(props) {
     setIsVisibleModal(true);
     setModalTitle("Creando nuevo curso");
     setModalContent(
-    <h1>modal add curso</h1>
-        //   <AddEditCourseForm
-    //     setIsVisibleModal={setIsVisibleModal}
-    //     setReloadCourses={setReloadCourses}
-    //   />
+          <AddEditCourseForm
+        setIsVisibleModal={setIsVisibleModal}
+        setReloadCourses={setReloadCourses}
+         />
     );
   };
 
