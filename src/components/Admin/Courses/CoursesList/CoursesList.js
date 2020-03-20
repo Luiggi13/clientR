@@ -3,7 +3,7 @@ import { List, Button, Modal as ModalAntd, notification } from "antd";
 import { BookOutlined } from '@ant-design/icons';
 import DragSortableList from 'react-drag-sortable';
 import Modal from "../../../Modal";
-import { getCourseDataUdemyApi } from "../../../../api/course";
+import { getCourseDataUdemyApi, deleteCourseApi  } from "../../../../api/course";
 import { getAccessTokenApi } from "../../../../api/auth";
 import "./CoursesList.scss";
 
@@ -78,23 +78,21 @@ export default function CoursesList(props) {
       okText: "Eliminar",
       okType: "danger",
       cancelText: "Cancelar",
-      onOk() {
-          console.log('delete course');
-          
-        // deleteCourseApi(accesToken, course._id)
-        //   .then(response => {
-        //     const typeNotification =
-        //       response.code === 200 ? "success" : "warning";
-        //     notification[typeNotification]({
-        //       message: response.message
-        //     });
-        //     setReloadCourses(true);
-        //   })
-        //   .catch(() => {
-        //     notification["error"]({
-        //       message: "Error del servidor, intentelo más tarde."
-        //     });
-        //   });
+      onOk() {          
+        deleteCourseApi(accesToken, course._id)
+          .then(response => {
+            const typeNotification =
+              response.code === 200 ? "success" : "warning";
+            notification[typeNotification]({
+              message: response.message
+            });
+            setReloadCourses(true);
+          })
+          .catch(() => {
+            notification["error"]({
+              message: "Error del servidor, inténtelo más tarde."
+            });
+          });
       }
     });
   };
