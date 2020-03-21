@@ -1,10 +1,10 @@
 import React , { useState, useEffect} from 'react';
 import { List, Button, Modal as ModalAntd, notification } from "antd";
-import { BookOutlined } from '@ant-design/icons';
+import { BookOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import DragSortableList from 'react-drag-sortable';
 import Modal from "../../../Modal";
 import AddEditCourseForm  from "../AddEditCourseForm";
-import { getCourseDataUdemyApi, deleteCourseApi  } from "../../../../api/course";
+import { getCourseDataUdemyApi, deleteCourseApi, updateCourseApi  } from "../../../../api/course";
 import { getAccessTokenApi } from "../../../../api/auth";
 
 import "./CoursesList.scss";
@@ -12,7 +12,7 @@ import "./CoursesList.scss";
 const { confirm } = ModalAntd;
 
 export default function CoursesList(props) {
-    const { courses, setReloadCourses } = props;
+  const { courses, setReloadCourses } = props;
   const [listCourses, setListCourses] = useState([]);
   const [isVisibleModal, setIsVisibleModal] = useState(false);
   const [modalTitle, setModalTitle] = useState("");
@@ -36,24 +36,23 @@ export default function CoursesList(props) {
   }, [courses]);
 
   const onSort = (sortedList, dropEvent) => {
-   console.log('onsort');
-    // const accessToken = getAccessTokenApi();
+    const accessToken = getAccessTokenApi();
 
-    // sortedList.forEach(item => {
-    //   const { _id } = item.content.props.course;
-    //   const order = item.rank;
-    //   updateCourseApi(accessToken, _id, { order });
-    // });
+    sortedList.forEach(item => {
+      const { _id } = item.content.props.course;
+      const order = item.rank;
+      updateCourseApi(accessToken, _id, { order });
+    });
   };
 
   const addCourseModal = () => {
     setIsVisibleModal(true);
     setModalTitle("Creando nuevo curso");
     setModalContent(
-          <AddEditCourseForm
+      <AddEditCourseForm
         setIsVisibleModal={setIsVisibleModal}
         setReloadCourses={setReloadCourses}
-         />
+      />
     );
   };
 
@@ -61,12 +60,11 @@ export default function CoursesList(props) {
     setIsVisibleModal(true);
     setModalTitle("Actualizando curso");
     setModalContent(
-        <h1>modal edit curso</h1>
-        //   <AddEditCourseForm
-    //     setIsVisibleModal={setIsVisibleModal}
-    //     setReloadCourses={setReloadCourses}
-    //     course={course}
-    //   />
+      <AddEditCourseForm
+        setIsVisibleModal={setIsVisibleModal}
+        setReloadCourses={setReloadCourses}
+        course={course}
+      />
     );
   };
 
@@ -79,7 +77,7 @@ export default function CoursesList(props) {
       okText: "Eliminar",
       okType: "danger",
       cancelText: "Cancelar",
-      onOk() {          
+      onOk() {
         deleteCourseApi(accesToken, course._id)
           .then(response => {
             const typeNotification =
@@ -91,7 +89,7 @@ export default function CoursesList(props) {
           })
           .catch(() => {
             notification["error"]({
-              message: "Error del servidor, inténtelo más tarde."
+              message: "Error del servidor, intentelo más tarde."
             });
           });
       }
@@ -112,6 +110,7 @@ export default function CoursesList(props) {
             No tienes cursos creados
           </h2>
         )}
+        {/* <div items={listCourses}></div> */}
         <DragSortableList items={listCourses} onSort={onSort} type="vertical" />
       </div>
 
@@ -136,9 +135,8 @@ function Course(props) {
         notification["warning"]({
           message: `El curso con el id ${course.idCourse} no se ha encontrado.`
         });
-      } else {
-          setCourseData(response.data);
       }
+      setCourseData(response.data);
     });
   }, [course]);
 
@@ -150,10 +148,10 @@ function Course(props) {
     <List.Item
       actions={[
         <Button type="primary" onClick={() => editCourseModal(course)}>
-          <BookOutlined />
+          <EditOutlined/>
         </Button>,
         <Button type="danger" onClick={() => deleteCourse(course)}>
-          <BookOutlined />
+          <DeleteOutlined />
         </Button>
       ]}
     >
