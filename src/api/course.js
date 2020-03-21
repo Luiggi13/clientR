@@ -16,6 +16,22 @@ export function getCoursesApi() {
     });
 
 }
+export function getLocalCoursesApi() {
+    const url = `${BASE_PATH}/${API_VERSION}/get-local-courses`;
+
+
+    return fetch(url)
+    .then(response => {
+        return response.json();
+    })
+    .then(result => {
+        return result;
+    })
+    .catch(err => {
+        return err;
+    });
+
+}
 
 export function getCourseDataUdemyApi(id){
 

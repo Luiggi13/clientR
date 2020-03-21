@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CoursesList from "../../components/Admin/Courses/CoursesList";
-import { getCoursesApi } from "../../api/course";
+import { getCoursesApi,getLocalCoursesApi } from "../../api/course";
 export default function Courses() {
     const [courses, setCourses] = useState([]);
     const [reloadCourses, setReloadCourses] = useState(false);
