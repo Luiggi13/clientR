@@ -9,17 +9,18 @@ export function getAccessTokenApi() {
     return null;
   }
 
-  return willExpireToken(accessToken) ? null : accessToken;
+  return willExpireToken(accessToken) ? getRefreshTokenApi() : accessToken;
 }
 
 export function getRefreshTokenApi() {
   const refreshToken = localStorage.getItem(REFRESH_TOKEN);
 
   if (!refreshToken || refreshToken === "null") {
+    logout();
     return null;
   }
-
-  return willExpireToken(refreshToken) ? null : refreshToken;
+  
+  return willExpireToken(refreshToken) ? refreshAccessTokenApi(refreshToken) : refreshToken;
 }
 
 export function refreshAccessTokenApi(refreshToken) {
@@ -44,6 +45,8 @@ export function refreshAccessTokenApi(refreshToken) {
     })
     .then(result => {
       if (!result) {
+        localStorage.removeItem(ACCESS_TOKEN);
+        localStorage.removeItem(REFRESH_TOKEN);
         logout();
       } else {
         const { accessToken, refreshToken } = result;
@@ -63,5 +66,7 @@ function willExpireToken(token) {
   const metaToken = jwtDecode(token);
   const { exp } = metaToken;
   const now = (Date.now() + seconds) / 1000;
+  console.log(now > exp);
+  
   return now > exp;
 }
