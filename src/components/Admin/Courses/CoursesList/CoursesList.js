@@ -131,9 +131,7 @@ function Course(props) {
 
   useEffect(() => {
     let unmounted = false;
-    getCourseDataUdemyApi(course.idCourse).then(response => {
-      console.log(response);
-      
+    getCourseDataUdemyApi(course.idCourse).then(response => {      
       if (response.code !== 200) {
         notification["warning"]({
           message: `El curso con el id ${course.idCourse} no se ha encontrado.`
@@ -171,7 +169,7 @@ function Course(props) {
         style={{ width: "100px", marginRight: "20px" }}
       />
       <List.Item.Meta
-        title={`${courseData.title} | ID: ${course.idCourse}`}
+        title={`${courseData.title} | ID: ${course.idCourse} | ${course.coupon} `}
         description={courseData.headline}
       />
     </List.Item>

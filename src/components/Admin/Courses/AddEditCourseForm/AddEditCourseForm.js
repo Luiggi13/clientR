@@ -17,13 +17,13 @@ export default function AddEditCourseForm(props) {
     const addCourse = (e) => {
     //   e.preventDefault();
   
-      if (!courseData.idCourse) {
-        notification["error"]({
-          message: "El id del curso es obligatorio"
-        });
-      } else {
-        const accessToken = getAccessTokenApi();
-  
+    if (!courseData.idCourse) {
+      notification["error"]({
+        message: "El id del curso es obligatorio"
+      });
+    } else {
+      const accessToken = getAccessTokenApi();
+        if (!courseData.coupon) {courseData.coupon = "sin cupon"}
         addCourseApi(accessToken, courseData)
           .then(response => {
             const typeNotification =
@@ -47,7 +47,7 @@ export default function AddEditCourseForm(props) {
       // e.preventDefault();
   
       const accessToken = getAccessTokenApi();
-  
+      if (!courseData.coupon) {courseData.coupon = "sin cupon"}
       updateCourseApi(accessToken, course._id, courseData)
         .then(response => {
           const typeNotification = response.code === 200 ? "success" : "warning";
