@@ -66,7 +66,6 @@ function willExpireToken(token) {
   const metaToken = jwtDecode(token);
   const { exp } = metaToken;
   const now = (Date.now() + seconds) / 1000;
-  console.log(now > exp);
   
   return now > exp;
 }
