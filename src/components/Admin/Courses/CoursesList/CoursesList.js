@@ -130,14 +130,24 @@ function Course(props) {
   const [courseData, setCourseData] = useState(null);
 
   useEffect(() => {
+    let unmounted = false;
     getCourseDataUdemyApi(course.idCourse).then(response => {
+      console.log(response);
+      
       if (response.code !== 200) {
         notification["warning"]({
           message: `El curso con el id ${course.idCourse} no se ha encontrado.`
         });
+      }else if(!unmounted) {
+        setCourseData(response.data);
       }
-      setCourseData(response.data);
-    });
+      });
+      
+    return () => {
+      unmounted = true;
+      
+    }
+    
   }, [course]);
 
   if (!courseData) {

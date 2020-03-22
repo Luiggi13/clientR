@@ -44,7 +44,7 @@ export default function AddEditCourseForm(props) {
     };
   
     const updateCourse = e => {
-      e.preventDefault();
+      // e.preventDefault();
   
       const accessToken = getAccessTokenApi();
   
