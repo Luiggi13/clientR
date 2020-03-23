@@ -18,6 +18,9 @@
         li {
             &.ant-menu-item {
                 margin: 0;
+                svg {
+                    font-size: 19px;
+                }
             }
         }
     }
