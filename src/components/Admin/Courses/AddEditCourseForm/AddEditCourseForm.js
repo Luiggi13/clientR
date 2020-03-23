@@ -23,7 +23,7 @@ export default function AddEditCourseForm(props) {
       });
     } else {
       const accessToken = getAccessTokenApi();
-        if (!courseData.coupon) {courseData.coupon = "sin cupon"}
+        if (!courseData.coupon) {courseData.coupon = ""}
         addCourseApi(accessToken, courseData)
           .then(response => {
             const typeNotification =
@@ -47,7 +47,7 @@ export default function AddEditCourseForm(props) {
       // e.preventDefault();
   
       const accessToken = getAccessTokenApi();
-      if (!courseData.coupon) {courseData.coupon = "sin cupon"}
+      if (!courseData.coupon) {courseData.coupon = ""}
       updateCourseApi(accessToken, course._id, courseData)
         .then(response => {
           const typeNotification = response.code === 200 ? "success" : "warning";
