@@ -23,8 +23,9 @@ export default function CoursesList(props) {
 function Course(props) {
     const { course } = props;
     const [courseInfo, setCourseInfo] = useState({});
+    const [urlCourse, setUrlCourse] = useState("");
     const { Meta } = Card;
-console.log(courseInfo)
+
     useEffect(() => {
         getCourseDataUdemyApi(course.idCourse)
             .then(response => {
@@ -33,7 +34,8 @@ console.log(courseInfo)
                         message: response.message
                     })
                 } else {
-                    setCourseInfo(response.data)
+                    setCourseInfo(response.data);
+                    mountUrl(response.data.url);
                 }
             })
             .catch(() => {
@@ -41,9 +43,21 @@ console.log(courseInfo)
                     message: "error del servidor, inténtelo más tarde."
                 })
             })
-    }, [course])
+    }, [course]);
+
+    const mountUrl = url => {
+
+        if (!course.link) {
+            const baseUrl = `https://www.udemy.com${url}`;
+            const finalUrl = baseUrl + (course.coupon ? `?couponCode=${course.coupon}` : "");
+            setUrlCourse(finalUrl);
+        } else {
+            setUrlCourse(course.link);
+        }
+    }
+
     return (
-        <a href="http://www.google.es" target="_blank" alt="asd" rel="noopener noreferrer">
+        <a href={urlCourse} target="_blank" alt="asd" rel="noopener noreferrer">
             <Card
             cover={<img src={courseInfo.image_480x270} alt={courseInfo.title} />}
             >
