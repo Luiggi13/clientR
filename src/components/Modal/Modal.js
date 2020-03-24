@@ -3,7 +3,6 @@ import { Modal as ModalAntd } from  "antd";
 
 export default function Modal(props) {
     const { children, title, isVisible, setIsVisible, ...restoProps } = props;
-    console.log(restoProps);
     
     return (
         <ModalAntd
