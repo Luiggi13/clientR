@@ -14,7 +14,7 @@ export default function PostsList(props) {
     return (
         <div className="posts-list">
             <List 
-            dataSource={posts}
+            dataSource={posts.docs}
             renderItem={post => <Post post={post} />}
             />
         </div>

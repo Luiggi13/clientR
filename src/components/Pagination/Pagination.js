@@ -1,10 +1,24 @@
 import React from 'react'
+import { Pagination as PaginationAntd } from "antd";
+
 
 import "./Pagination.scss";
-export default function Pagination() {
+
+export default function Pagination(props) {
+    const { posts, location, history } = props;
+    const currentPage = parseInt(posts.page);
+  
+    const onChangePage = newPage => {
+      history.push(`${location.pathname}?page=${newPage}`);
+    };
+  
     return (
-        <div>
-            <h1>Pagination...</h1>
-        </div>
-    )
+      <PaginationAntd
+        defaultCurrent={currentPage}
+        total={posts.total}
+        pageSize={posts.limit}
+        onChange={newPage => onChangePage(newPage)}
+        className="pagination"
+      />
+    );
 }

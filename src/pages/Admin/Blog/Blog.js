@@ -48,9 +48,9 @@ if (!posts) {
                     Nuevo post
                 </Button>
             </div>
-            <PostsList posts={posts.docs }
+            <PostsList posts={posts }
             />
-            <Pagination />
+            <Pagination posts={posts } location={location} history={history} />
             <Modal
                 title={modalTitle}
                 isVisible={isVisibleModal}
