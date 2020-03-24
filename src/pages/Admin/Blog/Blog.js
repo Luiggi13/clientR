@@ -3,6 +3,7 @@ import { Button, notification } from "antd";
 import { Link, withRouter } from "react-router-dom";
 import Modal from "../../../components/Modal";
 import PostsList from "../../../components/Admin/Blog/PostsList";
+import Pagination from '../../../components/Pagination/Pagination';
 import queryString from "query-string";
 import { getPostsApi } from '../../../api/post';
 
@@ -49,7 +50,7 @@ if (!posts) {
             </div>
             <PostsList posts={posts.docs }
             />
-            <h2>PAginación</h2>
+            <Pagination />
             <Modal
                 title={modalTitle}
                 isVisible={isVisibleModal}
