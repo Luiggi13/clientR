@@ -9,6 +9,7 @@
     "antd": "^4.0.0",
     "jwt-decode": "^2.2.0",
     "node-sass": "^4.13.1",
+    "query-string": "^6.11.1",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-drag-sortable": "^1.0.6",
