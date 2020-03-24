@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Button, notification } from "antd";
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import Modal from "../../../components/Modal";
+import PostsList from "../../../components/Admin/Blog/PostsList";
 import queryString from "query-string";
 import { getPostsApi } from '../../../api/post';
 
@@ -18,7 +19,7 @@ function Blog(props) {
     const { page = 1 } = queryString.parse(location.search);
 
     useEffect(() => {
-        getPostsApi(1, page)
+        getPostsApi(2, page)
           .then(response => {
             if (response?.code !== 200) {
               notification["warning"]({
@@ -46,14 +47,8 @@ if (!posts) {
                     Nuevo post
                 </Button>
             </div>
-            <h1>Post list</h1>
-            <div>
-                {posts.docs.map(post => (
-                    <div key={post._id}>
-                        {post.title}
-                    </div>
-                ))}
-            </div>
+            <PostsList posts={posts.docs }
+            />
             <h2>PAginación</h2>
             <Modal
                 title={modalTitle}
