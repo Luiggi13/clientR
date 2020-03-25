@@ -4,6 +4,7 @@ import { Link, withRouter } from "react-router-dom";
 import Modal from "../../../components/Modal";
 import PostsList from "../../../components/Admin/Blog/PostsList";
 import Pagination from '../../../components/Pagination/Pagination';
+import AddEditPostForm from '../../../components/Admin/Blog/AddEditPostForm';
 import queryString from "query-string";
 import { getPostsApi } from '../../../api/post';
 
@@ -41,7 +42,11 @@ function Blog(props) {
     const addPost = () => {
         setIsVisibleModal(true);
         setModalTitle("Creando nuevo post");
-        setModalContent(<h1>Nuevo post</h1>);
+        setModalContent(
+        <AddEditPostForm setIsVisibleModal={setIsVisibleModal} 
+        setReloadPosts={setReloadPosts}
+        posts={null}
+        />);
     }
     if (!posts) {
     return null
@@ -61,7 +66,9 @@ function Blog(props) {
                 isVisible={isVisibleModal}
                 setIsVisible={setIsVisibleModal}
                 width="75%"
-            />
+            >
+                {modalContent}
+            </Modal>
         </div>
     )
 }
