@@ -11,7 +11,6 @@ import { getPostsApi } from '../../../api/post';
 import "./Blog.scss";
 function Blog(props) {
     const { location, history } = props;
-    
     const [isVisibleModal, setIsVisibleModal] = useState(false);
     const [modalTitle, setModalTitle] = useState("");
     const [reloadPosts, setReloadPosts] = useState(false);
@@ -38,13 +37,19 @@ function Blog(props) {
         setReloadPosts(false);
       // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [page, reloadPosts]);
-if (!posts) {
+
+    const addPost = () => {
+        setIsVisibleModal(true);
+        setModalTitle("Creando nuevo post");
+        setModalContent(<h1>Nuevo post</h1>);
+    }
+    if (!posts) {
     return null
-}
+    }
     return (
         <div className="blog">
             <div className="blog__add-post">
-                <Button type="primary">
+                <Button type="primary" onClick={addPost}>
                     Nuevo post
                 </Button>
             </div>
