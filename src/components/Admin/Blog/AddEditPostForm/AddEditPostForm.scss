@@ -23,3 +23,7 @@
     width: 100%;
   }
 }
+// hide alert from tinyMCE
+    .tox-notification.tox-notification--in.tox-notification--warning{
+      display: none!important;
+    }
