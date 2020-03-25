@@ -34,7 +34,7 @@ function AddEditForm(props) {
     return (
         <Form className="add-edit-post-form" layout="inline">
             <Row gutter={24} className="add-edit-post-form__row">
-                <Col span={8}>
+                <Col md={8}>
                     <Input
                         prefix={<FontSizeOutlined />}
                         placeholder="Titulo"
@@ -42,7 +42,7 @@ function AddEditForm(props) {
                     // onChange={e => setPostData({ ...postData, title: e.target.value })}
                     />
                 </Col>
-                <Col span={8}>
+                <Col md={8}>
                     <Input
                         prefix={<LinkOutlined />}
                         placeholder="url"
@@ -55,7 +55,7 @@ function AddEditForm(props) {
                     // }
                     />
                 </Col>
-                <Col span={8}>
+                <Col md={8}>
                     <DatePicker
                         style={{ width: "100%" }}
                         format="DD/MM/YYYY HH:mm:ss"
@@ -72,7 +72,7 @@ function AddEditForm(props) {
                 </Col>
             </Row>
             <Editor
-         initialValue=""
+         initialValue={null}
          init={{
            height: 400,
            menubar: true,
@@ -88,6 +88,9 @@ function AddEditForm(props) {
          }}
         //  onEditorChange={this.handleEditorChange}
        />
+       <Button type="primary" className="btn-submit" htmlType="submit">
+           {post ? "Actualizar post" : "Crear post"}
+       </Button>
         </Form>
     )
 }
