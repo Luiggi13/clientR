@@ -24,19 +24,40 @@ export default function AddEditPostForm(props) {
         e.preventDefault();
         const { title, url, description, date } = postData;
 
-        if( !title || !url || !description || !date ) {
+        if (!title || !url || !description || !date) {
             notification["error"]({
                 message: "Todos los campos son obligatórios"
             });
+        } else {
+            if (!post) {
+                addPost();
+                console.log(postData);
+            } else {
+                console.log("Editando post");
+                console.log(postData);
+            }
         }
 
-        if(!post) {
-            console.log("creando post");
-            console.log(postData);
-        } else {
-            console.log("Editando post");
-            console.log(postData);
-        }
+    }
+
+    const addPost = () => {
+        const token = getAccessTokenApi();
+
+        addPostApi(token, postData).then(response => {
+            const typeNotification =
+                response.code === 200 ? "success" : "warning";
+            notification[typeNotification]({
+                message: response.message
+            });
+            setIsVisibleModal(false);
+            setReloadPosts(true);
+            setPostData({});
+        })
+            .catch(() => {
+                notification["error"]({
+                    message: "Error del servidor, intentelo más tarde."
+                });
+            });
     }
     return (
         <div className="add-edit-post-form">
@@ -59,21 +80,21 @@ function AddEditForm(props) {
                     <Input
                         prefix={<FontSizeOutlined />}
                         placeholder="Titulo"
-                    value={postData.title}
-                    onChange={e => setPostData({ ...postData, title: e.target.value })}
+                        value={postData.title}
+                        onChange={e => setPostData({ ...postData, title: e.target.value })}
                     />
                 </Col>
                 <Col md={8}>
                     <Input
                         prefix={<LinkOutlined />}
                         placeholder="url"
-                    value={postData.url}
-                    onChange={e =>
-                      setPostData({
-                        ...postData,
-                        url: transformTextToUrl(e.target.value)
-                      })
-                    }
+                        value={postData.url}
+                        onChange={e =>
+                            setPostData({
+                                ...postData,
+                                url: transformTextToUrl(e.target.value)
+                            })
+                        }
                     />
                 </Col>
                 <Col md={8}>
@@ -82,42 +103,42 @@ function AddEditForm(props) {
                         format="DD/MM/YYYY HH:mm:ss"
                         placeholder="Fecha de publicación"
                         showTime={{ defaultValue: moment("00:00:00", "HH:mm:ss") }}
-                    value={postData.date && moment(postData.date)}
-                    onChange={(e, value) =>
-                      setPostData({
-                        ...postData,
-                        date: moment(value, "DD/MM/YYYY HH:mm:ss").toISOString()
-                      })
-                    }
+                        value={postData.date && moment(postData.date)}
+                        onChange={(e, value) =>
+                            setPostData({
+                                ...postData,
+                                date: moment(value, "DD/MM/YYYY HH:mm:ss").toISOString()
+                            })
+                        }
                     />
                 </Col>
             </Row>
             <Editor
-         initialValue={postData.description ? postData.description : ""}
-         init={{
-           height: 400,
-           menubar: true,
-           plugins: [
-             'advlist autolink lists link image charmap print preview anchor',
-             'searchreplace visualblocks code fullscreen',
-             'insertdatetime media table paste code help wordcount'
-           ],
-           toolbar:
-             'undo redo | formatselect | bold italic backcolor | \
+                initialValue={postData.description ? postData.description : ""}
+                init={{
+                    height: 400,
+                    menubar: true,
+                    plugins: [
+                        'advlist autolink lists link image charmap print preview anchor',
+                        'searchreplace visualblocks code fullscreen',
+                        'insertdatetime media table paste code help wordcount'
+                    ],
+                    toolbar:
+                        'undo redo | formatselect | bold italic backcolor | \
              alignleft aligncenter alignright alignjustify | \
              bullist numlist outdent indent | removeformat | help'
-         }}
-        //  onEditorChange={this.handleEditorChange}
-        onChange={ e=>setPostData({...postData, description:e.target.getContent()}) }
-       />
-       <Button type="primary" className="btn-submit" htmlType="submit">
-           {post ? "Actualizar post" : "Crear post"}
-       </Button>
+                }}
+                //  onEditorChange={this.handleEditorChange}
+                onBlur={e => setPostData({ ...postData, description: e.target.getContent() })}
+            />
+            <Button type="primary" className="btn-submit" htmlType="submit">
+                {post ? "Actualizar post" : "Crear post"}
+            </Button>
         </Form>
     )
 }
 
 function transformTextToUrl(text) {
-    const url = text.replace(" ","-");
+    const url = text.replace(" ", "-");
     return url.toLowerCase();
 }
