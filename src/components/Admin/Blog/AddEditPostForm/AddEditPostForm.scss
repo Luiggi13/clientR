@@ -1,0 +1,38 @@
+@import "../../../../scss/index.scss";
+
+.add-edit-post-form {
+  text-align: center;
+  &__row {
+    width: 100% !important;
+    margin: 0;
+    .ant-col-md-8 {
+      padding-left:0!important;
+      padding-right: 10px;
+      &:last-child {
+        padding-right: 0!important;
+      }
+    }
+  }
+  .ant-form-item {
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+    svg {
+      color: rgba(0, 0, 0, 0.25);
+    }
+  }
+
+  .tox-tinymce {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+
+  .btn-submit {
+    width: 100%;
+  }
+}
+// hide alert from tinyMCE
+    .tox-notification.tox-notification--in.tox-notification--warning{
+      display: none!important;
+    }
