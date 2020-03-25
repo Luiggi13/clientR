@@ -4,6 +4,14 @@
   text-align: center;
   &__row {
     width: 100% !important;
+    margin: 0;
+    .ant-col-md-8 {
+      padding-left:0!important;
+      padding-right: 10px;
+      &:last-child {
+        padding-right: 0!important;
+      }
+    }
   }
   .ant-form-item {
     margin-top: 5px;
@@ -17,6 +25,7 @@
   .tox-tinymce {
     margin-top: 20px;
     margin-bottom: 20px;
+    width: 100%;
   }
 
   .btn-submit {
