@@ -128,7 +128,6 @@ function AddEditForm(props) {
              alignleft aligncenter alignright alignjustify | \
              bullist numlist outdent indent | removeformat | help'
                 }}
-                //  onEditorChange={this.handleEditorChange}
                 onBlur={e => setPostData({ ...postData, description: e.target.getContent() })}
             />
             <Button type="primary" className="btn-submit" htmlType="submit">
