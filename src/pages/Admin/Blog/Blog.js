@@ -11,12 +11,13 @@ import { getPostsApi } from '../../../api/post';
 
 import "./Blog.scss";
 function Blog(props) {
+    
     const { location, history } = props;
+    const [posts, setPosts] = useState(null);
+    const [reloadPosts, setReloadPosts] = useState(false);
     const [isVisibleModal, setIsVisibleModal] = useState(false);
     const [modalTitle, setModalTitle] = useState("");
-    const [reloadPosts, setReloadPosts] = useState(false);
     const [modalContent, setModalContent] = useState(null);
-    const [posts, setPosts] = useState(null);
     const { page = 1 } = queryString.parse(location.search);
 
     useEffect(() => {
@@ -45,7 +46,18 @@ function Blog(props) {
         setModalContent(
         <AddEditPostForm setIsVisibleModal={setIsVisibleModal} 
         setReloadPosts={setReloadPosts}
-        posts={null}
+        post={null}
+        />);
+    }
+    
+    const editPost = post => {
+        
+        setIsVisibleModal(true);
+        setModalTitle("Editando nuevo post");
+        setModalContent(
+        <AddEditPostForm setIsVisibleModal={setIsVisibleModal} 
+        setReloadPosts={setReloadPosts}
+        post={post}
         />);
     }
     if (!posts) {
@@ -58,7 +70,7 @@ function Blog(props) {
                     Nuevo post
                 </Button>
             </div>
-            <PostsList posts={posts} setReloadPosts={setReloadPosts}
+            <PostsList posts={posts} setReloadPosts={setReloadPosts} editPost={editPost}
             />
             <Pagination posts={posts } location={location} history={history} />
             <Modal

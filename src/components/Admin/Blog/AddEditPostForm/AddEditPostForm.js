@@ -4,13 +4,15 @@ import { FontSizeOutlined, LinkOutlined } from '@ant-design/icons';
 import moment from "moment";
 import { Editor } from "@tinymce/tinymce-react";
 import { getAccessTokenApi } from '../../../../api/auth';
-import { addPostApi } from '../../../../api/post';
+import { addPostApi, updatePostApi } from '../../../../api/post';
 
 import "./AddEditPostForm.scss";
 
 export default function AddEditPostForm(props) {
     const { setIsVisibleModal, setReloadPosts, post } = props;
     const [postData, setPostData] = useState({});
+    console.log(post);
+    
 
     useEffect(() => {
         if (post) {
@@ -31,10 +33,8 @@ export default function AddEditPostForm(props) {
         } else {
             if (!post) {
                 addPost();
-                console.log(postData);
             } else {
-                console.log("Editando post");
-                console.log(postData);
+                updatePost();
             }
         }
 
@@ -44,8 +44,7 @@ export default function AddEditPostForm(props) {
         const token = getAccessTokenApi();
 
         addPostApi(token, postData).then(response => {
-            const typeNotification =
-                response.code === 200 ? "success" : "warning";
+            const typeNotification = response.code === 200 ? "success" : "warning";
             notification[typeNotification]({
                 message: response.message
             });
@@ -59,6 +58,25 @@ export default function AddEditPostForm(props) {
                 });
             });
     }
+
+    const updatePost = () => {
+        const token = getAccessTokenApi();
+        updatePostApi(token, post._id, postData)
+          .then(response => {
+            const typeNotification = response.code === 200 ? "success" : "warning";
+            notification[typeNotification]({
+              message: response.message
+            });
+            setIsVisibleModal(false);
+            setReloadPosts(true);
+            setPostData({});
+          })
+          .catch(() => {
+            notification["error"]({
+              message: "Error del servidor."
+            });
+          });
+      };
     return (
         <div className="add-edit-post-form">
             <AddEditForm
@@ -127,7 +145,7 @@ function AddEditForm(props) {
                         'undo redo | formatselect | bold italic backcolor | \
              alignleft aligncenter alignright alignjustify | \
              bullist numlist outdent indent | removeformat | help'
-                }}
+                }}  
                 onBlur={e => setPostData({ ...postData, description: e.target.getContent() })}
             />
             <Button type="primary" className="btn-submit" htmlType="submit">
