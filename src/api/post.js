@@ -64,3 +64,27 @@ export function addPostApi(token, post) {
         });
 
 }
+
+export function updatePostApi(token, id) {
+  const url = `${BASE_PATH}/${API_VERSION}/update-post/${id}`;
+
+  const params = {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token
+      }
+    };
+  
+    return fetch(url, params)
+      .then(response => {
+        return response.json();
+      })
+      .then(result => {
+        return result;
+      })
+      .catch(err => {
+        return err;
+      });
+
+}
